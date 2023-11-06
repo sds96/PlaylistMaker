@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="base_padding">16dp</dimen>
+    <dimen name="base_text_size">22sp</dimen>
+    <dimen name="base_corner">16dp</dimen>
+    <dimen name="base_icon_padding">8dp</dimen>
+</resources>
