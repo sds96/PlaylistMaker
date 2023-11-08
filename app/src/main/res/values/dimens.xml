@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="base_padding">16dp</dimen>
-    <dimen name="base_text_size">22sp</dimen>
-    <dimen name="base_corner">16dp</dimen>
-    <dimen name="base_icon_padding">8dp</dimen>
+    <dimen name="padding_base">16dp</dimen>
+    <dimen name="text_size_base">22sp</dimen>
+    <dimen name="corner_size_base">16dp</dimen>
+    <dimen name="padding_icon_base">8dp</dimen>
+    <dimen name="size_square_icon_base">24dp</dimen>
+    <dimen name="height_setting_item">64dp</dimen>
+    <dimen name="margin_top_settings_icon">4dp</dimen>
 </resources>

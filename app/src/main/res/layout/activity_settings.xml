@@ -7,11 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="14dp">
+        android:padding="@dimen/padding_base">
         <ImageView
             android:id="@+id/settings_back_arrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/size_square_icon_base"
+            android:layout_height="@dimen/size_square_icon_base"
             android:src="@drawable/arrow_back"
             android:layout_gravity="center">
         </ImageView>
@@ -20,9 +20,9 @@
             android:layout_height="wrap_content"
             android:text="@string/Settings"
             android:textColor="@color/black"
-            android:textSize="@dimen/base_text_size"
-            android:layout_gravity="center"
-            android:layout_marginStart="12dp">
+            android:textSize="@dimen/text_size_base"
+            android:layout_marginStart="12dp"
+            android:layout_gravity="center">
         </TextView>
     </LinearLayout>
     <LinearLayout
@@ -32,80 +32,78 @@
         android:orientation="vertical">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/height_setting_item"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_base">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dark_theme"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp">
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical">
             </TextView>
             <Switch
-                android:layout_width="48dp"
-                android:layout_height="61dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_setting_item"
                 android:layout_gravity="end"
-                android:layout_marginEnd="6dp">
-            </Switch>
+                android:layout_marginTop="-16dp"></Switch>
+            <!-- Мне пришлось это сделать, поскольку студия требует высоту минимум 48 dp для Switch-->
         </FrameLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/height_setting_item"
+            android:padding="@dimen/padding_base">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Share_app"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp">
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical">
             </TextView>
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/size_square_icon_base"
+                android:layout_height="@dimen/size_square_icon_base"
                 android:src="@drawable/share"
                 android:layout_gravity="end"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="12dp">
+                android:layout_marginTop="@dimen/margin_top_settings_icon">
             </ImageView>
         </FrameLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/height_setting_item"
+            android:padding="@dimen/padding_base">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_support"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp">
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical">
             </TextView>
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/size_square_icon_base"
+                android:layout_height="@dimen/size_square_icon_base"
                 android:src="@drawable/support"
                 android:layout_gravity="end"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="12dp">
+                android:layout_marginTop="@dimen/margin_top_settings_icon">
             </ImageView>
         </FrameLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/height_setting_item"
+            android:padding="@dimen/padding_base">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/user_agreement"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp">
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical">
             </TextView>
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/size_square_icon_base"
+                android:layout_height="@dimen/size_square_icon_base"
                 android:src="@drawable/arrow_forward"
                 android:layout_gravity="end"
-                android:layout_marginTop="17dp"
-                android:layout_marginEnd="12dp">
+                android:layout_marginTop="@dimen/margin_top_settings_icon">
             </ImageView>
         </FrameLayout>
     </LinearLayout>

@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val searchButton = findViewById<Button>(R.id.search_button)
+        val searchButton = findViewById<Button>(R.id.buttonSearch)
 
         val buttonClickListener : View.OnClickListener = object : View.OnClickListener {
             override fun onClick(p0: View?) {
@@ -23,13 +22,13 @@ class MainActivity : AppCompatActivity() {
         }
         searchButton.setOnClickListener(buttonClickListener)
 
-        val mediaButton = findViewById<Button>(R.id.media_button)
+        val mediaButton = findViewById<Button>(R.id.buttonMedia)
         mediaButton.setOnClickListener{
             //Toast.makeText(this@MainActivity, "Вы нажали на медиатеку!", Toast.LENGTH_SHORT).show()
             val mediaLibraryIntent = Intent(this@MainActivity, MediaLibrary::class.java)
             startActivity(mediaLibraryIntent)
         }
-        val settingsButton = findViewById<Button>(R.id.settings_button)
+        val settingsButton = findViewById<Button>(R.id.buttonSettings)
         settingsButton.setOnClickListener{
             //Toast.makeText(this@MainActivity, "Вы нажали на настройки!", Toast.LENGTH_SHORT).show()
             val settingsIntent = Intent(this@MainActivity, SettingsActivity::class.java)
