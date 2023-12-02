@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ImageSettingsStyle">
+        <item name="android:layout_width">@dimen/size_square_icon_base</item>
+        <item name="android:layout_height">@dimen/size_square_icon_base</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_settings_icon</item>
+        <item name="tint">@color/YP_White</item>
+    </style>
+</resources>

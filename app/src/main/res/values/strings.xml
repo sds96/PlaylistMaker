@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">Playlist Maker</string>
+    <string name="developer_email" translatable="false">sinitcyn.dmitriy@mail.ru</string>
     <string name="title_hello">Привет, Практикум</string>
     <string name="Search">Поиск</string>
     <string name="Media">Медиатека</string>
     <string name="Settings">Настройки</string>
     <string name="dark_theme">Темная тема</string>
+
     <string name="Share_app">Поделиться приложением</string>
-    <string name="text_support">Написать в поддержку</string>
+    <string name="Share_app_link" translatable="false">https://practicum.yandex.ru/profile/android-developer/</string>
+
     <string name="user_agreement">Пользовательское соглашение</string>
+    <string name="user_agreement_link" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
+
+    <string name="text_support">Написать в поддержку</string>
+    <string name="support_message_title">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="support_message_text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
 </resources>
