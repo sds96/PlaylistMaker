@@ -29,7 +29,7 @@
             android:layout_gravity="center">
         </TextView>
     </LinearLayout>
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@drawable/search_bar"
@@ -39,20 +39,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/search_icon"
-            app:tint="?attr/colorPrimaryVariant"
-            android:layout_marginStart="8dp">
-        </ImageView>
-
         <EditText
             android:id="@+id/inputEditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
-            android:layout_weight="1"
             android:background="@null"
             android:hint="@string/Search"
             android:inputType="textAutoComplete"
@@ -60,17 +51,21 @@
             android:textColor="@color/YP_Black"
             android:textColorHint="?attr/colorPrimaryVariant"
             tools:ignore="TouchTargetSizeCheck"
-            android:textCursorDrawable="@color/YP_Blue">
+            android:textCursorDrawable="@color/YP_Blue"
+            android:drawableStart="@drawable/search_icon"
+            android:drawableTint="?attr/colorPrimaryVariant"
+            android:drawablePadding="8dp">
         </EditText>
         <ImageView
             android:id="@+id/clearIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/clear"
-            android:layout_gravity="center"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="4dp"
             android:visibility="gone"
             app:tint="?attr/colorPrimaryVariant">
         </ImageView>
-    </LinearLayout>
-
+    </FrameLayout>
 </LinearLayout>

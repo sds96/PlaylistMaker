@@ -14,7 +14,7 @@ class SettingsActivity : AppCompatActivity() {
 
         val backArrow = findViewById<ImageView>(R.id.settings_back_arrow)
         backArrow.setOnClickListener{
-            this.finish()
+            finish()
         }
 
         val shareBlock = findViewById<FrameLayout>(R.id.shareFrame)

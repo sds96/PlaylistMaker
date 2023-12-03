@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,13 +39,14 @@
                 style="@style/TextSettingsStyle"
                 android:text="@string/dark_theme">
             </TextView>
-            <Switch
+
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/themeSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginTop="-16dp"/>
-            <!-- Мне пришлось это сделать, поскольку студия требует высоту минимум 48 dp для Switch-->
+                tools:ignore="TouchTargetSizeCheck"
+                android:theme="@style/mySwitch"/>
         </FrameLayout>
         <FrameLayout
             android:id="@+id/shareFrame"

@@ -39,4 +39,10 @@
         <item name="android:layout_marginTop">@dimen/margin_top_settings_icon</item>
         <item name="tint">@color/YP_Gray</item>
     </style>
+
+    <style name="mySwitch" parent="Theme.AppCompat.Light">
+        <item name="android:colorForeground">@color/YP_Gray</item>
+        <item name="colorSwitchThumbNormal">@color/YP_Gray</item>
+        <item name="colorControlActivated">@color/YP_Blue</item>
+    </style>
 </resources>

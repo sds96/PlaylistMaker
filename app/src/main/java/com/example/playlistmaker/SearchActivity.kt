@@ -11,14 +11,14 @@ import android.widget.EditText
 import android.widget.ImageView
 
 class SearchActivity : AppCompatActivity() {
-    var currentSearchText = SEARCH_TEXT_EMPTY
+    private var currentSearchText = SEARCH_TEXT_EMPTY
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         val backArrow = findViewById<ImageView>(R.id.search_back_arrow)
         backArrow.setOnClickListener{
-            this.finish()
+            finish()
         }
 
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
@@ -62,13 +62,13 @@ class SearchActivity : AppCompatActivity() {
         outState.putString(SEARCH_STRING, currentSearchText)
     }
 
-    companion object{
-        const val SEARCH_STRING = "SEARCH_STRING"
-        const val SEARCH_TEXT_EMPTY = ""
-    }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         findViewById<EditText>(R.id.inputEditText).setText(savedInstanceState.getString(SEARCH_STRING))
+    }
+
+    companion object{
+        const val SEARCH_STRING = "SEARCH_STRING"
+        const val SEARCH_TEXT_EMPTY = ""
     }
 }
