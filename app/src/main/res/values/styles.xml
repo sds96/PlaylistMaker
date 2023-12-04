@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ButtonMainActivityStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/padding_base</item>
+        <item name="backgroundTint">@color/YP_White</item>
+        <item name="cornerRadius">@dimen/corner_size_base</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/text_size_base</item>
+        <item name="android:textColor">@color/YP_Black</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="iconTint">@color/YP_Black</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/padding_icon_base</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+    
+    <style name="FrameSettingsStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_setting_item</item>
+        <item name="android:padding">@dimen/padding_base</item>
+    </style>
+    <style name="TextSettingsStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="fontFamily">@font/ys_display_regular</item>
+        <item name="android:textSize">@dimen/text_size_settings</item>
+    </style>
+    <style name="ImageSettingsStyle">
+        <item name="android:layout_width">@dimen/size_square_icon_base</item>
+        <item name="android:layout_height">@dimen/size_square_icon_base</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_settings_icon</item>
+        <item name="tint">@color/YP_Gray</item>
+    </style>
+
+    <style name="mySwitch" parent="Theme.AppCompat.Light">
+        <item name="android:colorForeground">@color/YP_Gray</item>
+        <item name="colorSwitchThumbNormal">@color/YP_Gray</item>
+        <item name="colorControlActivated">@color/YP_Blue</item>
+    </style>
+</resources>

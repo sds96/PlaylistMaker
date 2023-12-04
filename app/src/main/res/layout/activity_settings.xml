@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +15,14 @@
             android:layout_width="@dimen/size_square_icon_base"
             android:layout_height="@dimen/size_square_icon_base"
             android:src="@drawable/arrow_back"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            app:tint="?attr/colorOnPrimary">
         </ImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Settings"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/text_size_base"
             android:layout_marginStart="12dp"
             android:layout_gravity="center">
@@ -31,79 +34,55 @@
         android:layout_marginTop="24dp"
         android:orientation="vertical">
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_setting_item"
-            android:orientation="horizontal"
-            android:padding="@dimen/padding_base">
+            style="@style/FrameSettingsStyle">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dark_theme"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical">
+                style="@style/TextSettingsStyle"
+                android:text="@string/dark_theme">
             </TextView>
-            <Switch
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:contentDescription="@string/switch_description"
+                android:id="@+id/themeSwitch"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_setting_item"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginTop="-16dp"></Switch>
-            <!-- Мне пришлось это сделать, поскольку студия требует высоту минимум 48 dp для Switch-->
+                tools:ignore="TouchTargetSizeCheck"
+                android:theme="@style/mySwitch"/>
         </FrameLayout>
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_setting_item"
-            android:padding="@dimen/padding_base">
+            android:id="@+id/shareFrame"
+            style="@style/FrameSettingsStyle">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Share_app"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical">
+                style="@style/TextSettingsStyle"
+                android:text="@string/Share_app">
             </TextView>
             <ImageView
-                android:layout_width="@dimen/size_square_icon_base"
-                android:layout_height="@dimen/size_square_icon_base"
-                android:src="@drawable/share"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/margin_top_settings_icon">
+                style="@style/ImageSettingsStyle"
+                android:src="@drawable/share">
             </ImageView>
         </FrameLayout>
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_setting_item"
-            android:padding="@dimen/padding_base">
+            android:id="@+id/supportFrame"
+            style="@style/FrameSettingsStyle">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_support"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical">
+                style="@style/TextSettingsStyle"
+                android:text="@string/text_support">
             </TextView>
             <ImageView
-                android:layout_width="@dimen/size_square_icon_base"
-                android:layout_height="@dimen/size_square_icon_base"
-                android:src="@drawable/support"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/margin_top_settings_icon">
+                style="@style/ImageSettingsStyle"
+                android:src="@drawable/support">
             </ImageView>
         </FrameLayout>
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_setting_item"
-            android:padding="@dimen/padding_base">
+            android:id="@+id/licenceFrame"
+            style="@style/FrameSettingsStyle">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user_agreement"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical">
+                style="@style/TextSettingsStyle"
+                android:text="@string/user_agreement">
             </TextView>
             <ImageView
-                android:layout_width="@dimen/size_square_icon_base"
-                android:layout_height="@dimen/size_square_icon_base"
-                android:src="@drawable/arrow_forward"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/margin_top_settings_icon">
+                style="@style/ImageSettingsStyle"
+                android:src="@drawable/arrow_forward">
             </ImageView>
         </FrameLayout>
     </LinearLayout>
