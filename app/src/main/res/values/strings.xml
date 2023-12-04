@@ -16,4 +16,5 @@
     <string name="text_support">Написать в поддержку</string>
     <string name="support_message_title">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="support_message_text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="switch_description" translatable="false">Switch for dark theme</string>
 </resources>
