@@ -18,7 +18,8 @@
         <item name="android:foreground">?attr/selectableItemBackground</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
     </style>
-    
+
+    <!-- Settings Styles -->
     <style name="FrameSettingsStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/height_setting_item</item>
@@ -39,10 +40,57 @@
         <item name="android:layout_marginTop">@dimen/margin_top_settings_icon</item>
         <item name="tint">@color/YP_Gray</item>
     </style>
-
     <style name="mySwitch" parent="Theme.AppCompat.Light">
         <item name="android:colorForeground">@color/YP_Gray</item>
         <item name="colorSwitchThumbNormal">@color/YP_Gray</item>
         <item name="colorControlActivated">@color/YP_Blue</item>
+    </style>
+
+    <!-- Search Styles -->
+    <style name="artworkStyle">
+        <item name="android:layout_width">@dimen/artwork_search_size</item>
+        <item name="android:layout_height">@dimen/artwork_search_size</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">12dp</item>
+    </style>
+    <style name="searchTrackInfoBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginStart">64dp</item>
+        <item name="android:layout_marginEnd">44dp</item>
+    </style>
+    <style name="searchTrackNameStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/track_name_search_size</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="searchTrackSubInfoStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxWidth">@dimen/track_info_search_max_width</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/track_info_search_size</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+    <style name="searchTrackSubInfoDotStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="tint">?attr/colorOnSecondary</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+    </style>
+    <style name="searchTrackArrowStyle">
+        <item name="android:layout_width">@dimen/size_square_icon_base</item>
+        <item name="android:layout_height">@dimen/size_square_icon_base</item>
+        <item name="android:layout_gravity">center_vertical|end</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="tint">?attr/colorOnSecondary</item>
     </style>
 </resources>
