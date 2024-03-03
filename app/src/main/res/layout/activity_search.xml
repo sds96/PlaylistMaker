@@ -26,6 +26,7 @@
             android:text="@string/Search"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/text_size_base"
+            android:fontFamily="@font/ys_display_medium"
             android:layout_marginStart="12dp"
             android:layout_gravity="center">
         </TextView>
@@ -52,6 +53,7 @@
             android:maxLines="1"
             android:textColor="@color/YP_Black"
             android:textColorHint="?attr/colorPrimaryVariant"
+            android:fontFamily="@font/ys_display_regular"
             tools:ignore="TouchTargetSizeCheck"
             android:textCursorDrawable="@color/YP_Blue"
             android:drawableStart="@drawable/search_icon"

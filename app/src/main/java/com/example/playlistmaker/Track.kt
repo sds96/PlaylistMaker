@@ -6,5 +6,3 @@ data class Track(
     val trackTime: String,
     val artworkUrl100: String
 )
-{
-}
