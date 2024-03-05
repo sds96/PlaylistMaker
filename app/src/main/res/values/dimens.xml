@@ -8,4 +8,10 @@
     <dimen name="size_square_icon_base">24dp</dimen>
     <dimen name="height_setting_item">64dp</dimen>
     <dimen name="margin_top_settings_icon">4dp</dimen>
+
+    <dimen name="artwork_search_size">44dp</dimen>
+    <dimen name="height_track_search_item">64dp</dimen>
+    <dimen name="track_name_search_size">16sp</dimen>
+    <dimen name="track_info_search_size">11sp</dimen>
+    <dimen name="track_info_search_max_width">120dp</dimen>
 </resources>

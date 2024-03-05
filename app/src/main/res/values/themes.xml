@@ -8,7 +8,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/YP_Blue</item>
         <item name="colorSecondaryVariant">@color/YP_Light_Gray</item>
-        <item name="colorOnSecondary">@color/YP_Black</item>
+        <item name="colorOnSecondary">@color/YP_Gray</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
