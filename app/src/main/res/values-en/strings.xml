@@ -10,4 +10,7 @@
     <string name="user_agreement">User\'s agreement</string>
     <string name="support_message_title">Message for developers of application Playlist Maker</string>
     <string name="support_message_text">Thank you for such a cool app!</string>
+    <string name="search_error">Nothing found</string>
+    <string name="internet_error">Connection error</string>
+    <string name="refresh">Refresh</string>
 </resources>
