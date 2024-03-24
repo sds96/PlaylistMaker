@@ -6,16 +6,46 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
     private var currentSearchText = SEARCH_TEXT_EMPTY
+
+    private val iTunesBaseUrl = "https://itunes.apple.com"
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(iTunesBaseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val iTunesService = retrofit.create(ITunesApi::class.java)
+    private val tracks = ArrayList<Track>()
+    private val myAdapter = TrackAdapter(tracks)
+
+    lateinit var recyclerSearch : RecyclerView
+    lateinit var searchErrorView : LinearLayout
+    lateinit var internetErrorView : LinearLayout
+    lateinit var refreshButton : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        searchErrorView = findViewById(R.id.searchErrorView)
+        internetErrorView = findViewById(R.id.internetErrorView)
+        recyclerSearch = findViewById(R.id.recyclerSearch)
+        recyclerSearch.adapter = myAdapter
 
         val backArrow = findViewById<ImageView>(R.id.search_back_arrow)
         backArrow.setOnClickListener{
@@ -30,6 +60,12 @@ class SearchActivity : AppCompatActivity() {
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             inputEditText.clearFocus()
+
+            searchErrorView.isVisible = false
+            internetErrorView.isVisible = false
+            recyclerSearch.isVisible = false
+            tracks.clear()
+            myAdapter.notifyDataSetChanged()
         }
 
         val myTextWatcher = object : TextWatcher {
@@ -42,16 +78,71 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // empty
                 currentSearchText = s.toString()
             }
         }
 
         inputEditText.addTextChangedListener(myTextWatcher)
 
-        val recyclerSearch = findViewById<RecyclerView>(R.id.recyclerSearch)
-        val myAdapter= TrackAdapter(mock_list)
-        recyclerSearch.adapter = myAdapter
+        // штука, чтобы при нажатии DONE на клаве, запускать поиск
+        inputEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if(currentSearchText.isNotEmpty())
+                    search(currentSearchText)
+            }
+            false
+        }
+
+        refreshButton = findViewById(R.id.refresh_button)
+        refreshButton.setOnClickListener{
+            search(currentSearchText)
+        }
+    }
+
+    private fun search(text: String){
+        iTunesService.search(text).enqueue(object : Callback<TracksResponse>{
+            override fun onResponse(
+                call: Call<TracksResponse>,
+                response: Response<TracksResponse>
+            ) {
+                // пустой экран - идёт поиск
+                searchErrorView.isVisible = false
+                internetErrorView.isVisible = false
+                recyclerSearch.isVisible = false
+
+                if (response.code() == 200){
+                    // успешный запрос
+                    tracks.clear()
+                    if(response.body()?.results?.isNotEmpty() == true){
+                        // Треки нашлись
+                        searchErrorView.isVisible = false
+                        internetErrorView.isVisible = false
+                        recyclerSearch.isVisible = true
+
+                        tracks.addAll(response.body()?.results!!)
+                        myAdapter.notifyDataSetChanged()
+                    }
+                    if (tracks.isEmpty()){
+                        // Не нашлись
+                        searchErrorView.isVisible = true
+                        internetErrorView.isVisible = false
+                        recyclerSearch.isVisible = false
+                    }
+                } else {
+                    // код ответа плохой
+                    searchErrorView.isVisible = false
+                    internetErrorView.isVisible = true
+                    recyclerSearch.isVisible = false
+                }
+            }
+
+            override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
+                // всё плохо
+                searchErrorView.isVisible = false
+                internetErrorView.isVisible = true
+                recyclerSearch.isVisible = false
+            }
+        })
     }
 
     private fun clearButtonVisibility(s: CharSequence?): Int {
@@ -75,6 +166,7 @@ class SearchActivity : AppCompatActivity() {
     companion object{
         const val SEARCH_STRING = "SEARCH_STRING"
         const val SEARCH_TEXT_EMPTY = ""
+        /*
         val mock_list : ArrayList<Track> = arrayListOf(
             Track("Smells Like Teen Spirit",
                 "Nirvana",
@@ -101,5 +193,6 @@ class SearchActivity : AppCompatActivity() {
                 "69:420",
                 "https://https://www.google.com/")
         )
+         */
     }
 }

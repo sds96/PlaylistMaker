@@ -17,4 +17,7 @@
     <string name="support_message_title">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="support_message_text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="switch_description" translatable="false">Switch for dark theme</string>
+    <string name="search_error">Ничего не нашлось</string>
+    <string name="internet_error">Проблемы со связью\n\nЗагрузка не удалась. Проверьте\nподключение к интернету</string>
+    <string name="refresh">Обновить</string>
 </resources>

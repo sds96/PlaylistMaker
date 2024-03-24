@@ -58,7 +58,9 @@
             android:textCursorDrawable="@color/YP_Blue"
             android:drawableStart="@drawable/search_icon"
             android:drawableTint="?attr/colorPrimaryVariant"
-            android:drawablePadding="8dp">
+            android:drawablePadding="8dp"
+            android:imeOptions="actionDone"
+            android:singleLine="true">
         </EditText>
         <ImageView
             android:id="@+id/clearIcon"
@@ -72,10 +74,64 @@
             app:tint="?attr/colorPrimaryVariant">
         </ImageView>
     </FrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="gone">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/searchErrorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search_error"
+            android:layout_marginTop="100dp">
+        </ImageView>
+        <TextView
+            style="@style/searchErrorTextStyle"
+            android:text="@string/search_error">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/internetErrorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/internet_error"
+            android:layout_marginTop="100dp">
+        </ImageView>
+        <TextView
+            style="@style/searchErrorTextStyle"
+            android:text="@string/internet_error">
+        </TextView>
+        <Button
+            android:id="@+id/refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_base"
+            android:text="@string/refresh"
+            android:textSize="14sp"
+            android:fontFamily="@font/ys_display_medium"
+            android:textFontWeight="500"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorOnPrimary"
+            app:cornerRadius="20dp">
+        </Button>
+    </LinearLayout>
 </LinearLayout>
