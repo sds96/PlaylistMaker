@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,9 +61,9 @@ class SearchActivity : AppCompatActivity() {
             inputMethodManager?.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             inputEditText.clearFocus()
 
-            searchErrorView.visibility = View.GONE
-            internetErrorView.visibility = View.GONE
-            recyclerSearch.visibility = View.GONE
+            searchErrorView.isVisible = false
+            internetErrorView.isVisible = false
+            recyclerSearch.isVisible = false
             tracks.clear()
             myAdapter.notifyDataSetChanged()
         }
@@ -77,18 +78,17 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // empty
                 currentSearchText = s.toString()
             }
         }
 
         inputEditText.addTextChangedListener(myTextWatcher)
 
+        // штука, чтобы при нажатии DONE на клаве, запускать поиск
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if(currentSearchText.isNotEmpty())
                     search(currentSearchText)
-                true
             }
             false
         }
@@ -106,44 +106,41 @@ class SearchActivity : AppCompatActivity() {
                 response: Response<TracksResponse>
             ) {
                 // пустой экран - идёт поиск
-                searchErrorView.visibility = View.GONE
-                internetErrorView.visibility = View.GONE
-                recyclerSearch.visibility = View.GONE
+                searchErrorView.isVisible = false
+                internetErrorView.isVisible = false
+                recyclerSearch.isVisible = false
 
                 if (response.code() == 200){
                     // успешный запрос
                     tracks.clear()
                     if(response.body()?.results?.isNotEmpty() == true){
                         // Треки нашлись
-                        searchErrorView.visibility = View.GONE
-                        internetErrorView.visibility = View.GONE
-                        recyclerSearch.visibility = View.VISIBLE
+                        searchErrorView.isVisible = false
+                        internetErrorView.isVisible = false
+                        recyclerSearch.isVisible = true
 
                         tracks.addAll(response.body()?.results!!)
                         myAdapter.notifyDataSetChanged()
                     }
                     if (tracks.isEmpty()){
                         // Не нашлись
-                        searchErrorView.visibility = View.VISIBLE
-                        internetErrorView.visibility = View.GONE
-                        recyclerSearch.visibility = View.GONE
+                        searchErrorView.isVisible = true
+                        internetErrorView.isVisible = false
+                        recyclerSearch.isVisible = false
                     }
                 } else {
                     // код ответа плохой
-                    // val message = "code ${response.code()}"
-                    // Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-                    searchErrorView.visibility = View.GONE
-                    internetErrorView.visibility = View.VISIBLE
-                    recyclerSearch.visibility = View.GONE
+                    searchErrorView.isVisible = false
+                    internetErrorView.isVisible = true
+                    recyclerSearch.isVisible = false
                 }
             }
 
             override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                 // всё плохо
-                //Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
-                searchErrorView.visibility = View.GONE
-                internetErrorView.visibility = View.VISIBLE
-                recyclerSearch.visibility = View.GONE
+                searchErrorView.isVisible = false
+                internetErrorView.isVisible = true
+                recyclerSearch.isVisible = false
             }
         })
     }
@@ -169,6 +166,7 @@ class SearchActivity : AppCompatActivity() {
     companion object{
         const val SEARCH_STRING = "SEARCH_STRING"
         const val SEARCH_TEXT_EMPTY = ""
+        /*
         val mock_list : ArrayList<Track> = arrayListOf(
             Track("Smells Like Teen Spirit",
                 "Nirvana",
@@ -195,5 +193,6 @@ class SearchActivity : AppCompatActivity() {
                 "69:420",
                 "https://https://www.google.com/")
         )
+         */
     }
 }
