@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchActivity : AppCompatActivity() {
     private var currentSearchText = SEARCH_TEXT_EMPTY
 
+    // для работы поиска
     private val iTunesBaseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(iTunesBaseUrl)
@@ -31,30 +32,36 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesService = retrofit.create(ITunesApi::class.java)
     private val tracks = ArrayList<Track>()
-    private val myAdapter = TrackAdapter(tracks)
+    lateinit var myAdapter : TrackAdapter
 
+    // обработка проблем поиска
     lateinit var recyclerSearch : RecyclerView
     lateinit var searchErrorView : LinearLayout
     lateinit var internetErrorView : LinearLayout
-    lateinit var refreshButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        // ---- История поиска ----
+        val sharedPrefs = getSharedPreferences(PLAYLISTMAKER_SHARED_PREFERENCES, MODE_PRIVATE)
+        val searchHistory = SearchHistory(sharedPrefs)
+        val searchHistoryView = findViewById<LinearLayout>(R.id.search_history)
+
+        val recyclerSearchHistory = findViewById<RecyclerView>(R.id.recyclerSearchHistory)
+        val historyAdapter = TrackAdapter(searchHistory.getHistory(), searchHistory)
+        recyclerSearchHistory.adapter = historyAdapter
+
+        // ---- Просто поиск ----
         searchErrorView = findViewById(R.id.searchErrorView)
         internetErrorView = findViewById(R.id.internetErrorView)
         recyclerSearch = findViewById(R.id.recyclerSearch)
+        myAdapter = TrackAdapter(tracks, searchHistory)
         recyclerSearch.adapter = myAdapter
 
-        val backArrow = findViewById<ImageView>(R.id.search_back_arrow)
-        backArrow.setOnClickListener{
-            finish()
-        }
-
+        // ---- Работа с вводом ----
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
         val clearButton = findViewById<ImageView>(R.id.clearIcon)
-
         clearButton.setOnClickListener {
             inputEditText.setText(SEARCH_TEXT_EMPTY)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -66,6 +73,7 @@ class SearchActivity : AppCompatActivity() {
             recyclerSearch.isVisible = false
             tracks.clear()
             myAdapter.notifyDataSetChanged()
+            historyAdapter.notifyDataSetChanged()
         }
 
         val myTextWatcher = object : TextWatcher {
@@ -75,6 +83,7 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
+                searchHistoryView.isVisible = (inputEditText.hasFocus() && s?.isEmpty() == true && searchHistory.isNotEmpty())
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -83,6 +92,9 @@ class SearchActivity : AppCompatActivity() {
         }
 
         inputEditText.addTextChangedListener(myTextWatcher)
+        inputEditText.setOnFocusChangeListener { _, hasFocus ->
+            searchHistoryView.isVisible = (hasFocus && inputEditText.text.isEmpty() && searchHistory.isNotEmpty())
+        }
 
         // штука, чтобы при нажатии DONE на клаве, запускать поиск
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -93,9 +105,22 @@ class SearchActivity : AppCompatActivity() {
             false
         }
 
-        refreshButton = findViewById(R.id.refresh_button)
+        // ---- Навигация и кнопки ---
+        val backArrow = findViewById<ImageView>(R.id.search_back_arrow)
+        backArrow.setOnClickListener{
+            finish()
+        }
+
+        val refreshButton = findViewById<Button>(R.id.refresh_button)
         refreshButton.setOnClickListener{
             search(currentSearchText)
+        }
+
+        val clearHistoryButton = findViewById<Button>(R.id.clear_history_button)
+        clearHistoryButton.setOnClickListener{
+            searchHistoryView.isVisible = false
+            searchHistory.clearHistory()
+            historyAdapter.notifyDataSetChanged()
         }
     }
 
@@ -193,6 +218,6 @@ class SearchActivity : AppCompatActivity() {
                 "69:420",
                 "https://https://www.google.com/")
         )
-         */
+        */
     }
 }

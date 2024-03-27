@@ -13,4 +13,6 @@
     <string name="search_error">Nothing found</string>
     <string name="internet_error">Connection error</string>
     <string name="refresh">Refresh</string>
+    <string name="last_search">Last searches</string>
+    <string name="clear_history">Clear history</string>
 </resources>

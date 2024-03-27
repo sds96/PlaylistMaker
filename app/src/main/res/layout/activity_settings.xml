@@ -40,7 +40,7 @@
                 android:text="@string/dark_theme">
             </TextView>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:contentDescription="@string/switch_description"
                 android:id="@+id/themeSwitch"
                 android:layout_width="wrap_content"
