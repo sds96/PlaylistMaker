@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.ImageView
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,13 @@ class SettingsActivity : AppCompatActivity() {
         val backArrow = findViewById<ImageView>(R.id.settings_back_arrow)
         backArrow.setOnClickListener{
             finish()
+        }
+
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitch)
+        val app = (applicationContext as App)
+        themeSwitcher.isChecked = app.darkTheme
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            app.switchTheme(checked)
         }
 
         val shareBlock = findViewById<FrameLayout>(R.id.shareFrame)
