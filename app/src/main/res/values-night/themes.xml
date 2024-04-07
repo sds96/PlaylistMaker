@@ -10,5 +10,6 @@
         <item name="colorSecondaryVariant">@color/YP_White</item>
         <item name="colorOnSecondary">@color/YP_White</item>
         <!-- Customize your theme here. -->
+        <item name="colorButtonNormal">@color/YP_Gray</item>
     </style>
 </resources>

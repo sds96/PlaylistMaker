@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken
 
 class SearchHistory (private val sharedPreferences: SharedPreferences) {
     // история поиска [new -> old]
-    private var trackHistory = read()
+    private var trackHistory : ArrayList<Track> = read()
     private val MAX_SIZE = 10
     private val SEARCH_HISTORY_KEY = "SHK"
 

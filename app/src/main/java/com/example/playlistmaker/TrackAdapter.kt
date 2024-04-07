@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +22,14 @@ class TrackAdapter (
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener{
+            val intent = Intent(holder.itemView.context, AudioPlayerActivity::class.java)
+            intent.putExtra("track", tracks[position])
+            holder.itemView.context.startActivity(intent)
+
             searchHistory.addTrack(tracks[position])
             // изменился порядок от начала и до нажатого
             notifyItemRangeChanged(0, position+1)
+
         }
     }
 }
