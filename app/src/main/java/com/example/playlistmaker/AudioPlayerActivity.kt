@@ -10,6 +10,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+const val PARCEL_KEY="track"
+
 class AudioPlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +23,9 @@ class AudioPlayerActivity : AppCompatActivity() {
         }
 
         val track : Track? = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-            intent.getSerializableExtra("track", Track::class.java)
+            intent.getParcelableExtra(PARCEL_KEY, Track::class.java)
         else
-            intent.getSerializableExtra("track") as Track
+            intent.getParcelableExtra(PARCEL_KEY) as Track?
 
         val trackNameView = findViewById<TextView>(R.id.trackNameView)
         trackNameView.text = track?.trackName
@@ -53,6 +55,5 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         val trackCountryView = findViewById<TextView>(R.id.trackCountry)
         trackCountryView.text = track?.country
-
     }
 }

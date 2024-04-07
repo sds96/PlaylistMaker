@@ -3,6 +3,7 @@
     <dimen name="padding_base">16dp</dimen>
     <dimen name="text_size_base">22sp</dimen>
     <dimen name="text_size_settings">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
     <dimen name="corner_size_base">16dp</dimen>
     <dimen name="padding_icon_base">8dp</dimen>
     <dimen name="size_square_icon_base">24dp</dimen>
@@ -13,5 +14,6 @@
     <dimen name="height_track_search_item">64dp</dimen>
     <dimen name="track_name_search_size">16sp</dimen>
     <dimen name="track_info_search_size">11sp</dimen>
-    <dimen name="track_info_search_max_width">120dp</dimen>
+
+    <dimen name="back_button_size">48dp</dimen>
 </resources>

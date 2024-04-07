@@ -23,7 +23,7 @@ class TrackAdapter (
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, AudioPlayerActivity::class.java)
-            intent.putExtra("track", tracks[position])
+            intent.putExtra(PARCEL_KEY, tracks[position])
             holder.itemView.context.startActivity(intent)
 
             searchHistory.addTrack(tracks[position])
