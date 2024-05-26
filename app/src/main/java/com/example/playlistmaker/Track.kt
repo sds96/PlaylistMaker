@@ -13,6 +13,7 @@ data class Track(
     val releaseDate: String,    // использую только год, это первые 4 символа
     val primaryGenreName: String,
     val country: String,
+    val previewUrl: String,
     val trackTimeMillis: Int = 0
 ) : Parcelable
 {
