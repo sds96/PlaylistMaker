@@ -36,13 +36,13 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesService = retrofit.create(ITunesApi::class.java)
     private val tracks = ArrayList<Track>()
-    lateinit var myAdapter : TrackAdapter
+    var myAdapter : TrackAdapter? = null
 
     // обработка проблем поиска
-    lateinit var recyclerSearch : RecyclerView
-    lateinit var searchErrorView : LinearLayout
-    lateinit var internetErrorView : LinearLayout
-    lateinit var searchProgressBar : ProgressBar
+    var recyclerSearch : RecyclerView? = null
+    var searchErrorView : LinearLayout? = null
+    var internetErrorView : LinearLayout? = null
+    var searchProgressBar : ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,7 @@ class SearchActivity : AppCompatActivity() {
         recyclerSearch = findViewById(R.id.recyclerSearch)
         searchProgressBar = findViewById(R.id.searchProgressBar)
         myAdapter = TrackAdapter(tracks, searchHistory)
-        recyclerSearch.adapter = myAdapter
+        recyclerSearch?.adapter = myAdapter
 
         // ---- Работа с вводом ----
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
@@ -74,12 +74,12 @@ class SearchActivity : AppCompatActivity() {
             inputMethodManager?.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
             inputEditText.clearFocus()
 
-            searchErrorView.isVisible = false
-            internetErrorView.isVisible = false
-            recyclerSearch.isVisible = false
-            searchProgressBar.isVisible = false
+            searchErrorView?.isVisible = false
+            internetErrorView?.isVisible = false
+            recyclerSearch?.isVisible = false
+            searchProgressBar?.isVisible = false
             tracks.clear()
-            myAdapter.notifyDataSetChanged()
+            myAdapter?.notifyDataSetChanged()
             historyAdapter.notifyDataSetChanged()
         }
 
@@ -143,50 +143,50 @@ class SearchActivity : AppCompatActivity() {
         if(currentSearchText.isEmpty())
             return
         // начинаем поиск - прогрессБар
-        searchErrorView.isVisible = false
-        internetErrorView.isVisible = false
-        recyclerSearch.isVisible = false
-        searchProgressBar.isVisible = true
+        searchErrorView?.isVisible = false
+        internetErrorView?.isVisible = false
+        recyclerSearch?.isVisible = false
+        searchProgressBar?.isVisible = true
 
         iTunesService.search(currentSearchText).enqueue(object : Callback<TracksResponse>{
             override fun onResponse(
                 call: Call<TracksResponse>,
                 response: Response<TracksResponse>
             ) {
-                searchProgressBar.isVisible = false
+                searchProgressBar?.isVisible = false
 
                 if (response.code() == 200){
                     // успешный запрос
                     tracks.clear()
                     if(response.body()?.results?.isNotEmpty() == true){
                         // Треки нашлись
-                        searchErrorView.isVisible = false
-                        internetErrorView.isVisible = false
-                        recyclerSearch.isVisible = true
+                        searchErrorView?.isVisible = false
+                        internetErrorView?.isVisible = false
+                        recyclerSearch?.isVisible = true
 
                         tracks.addAll(response.body()?.results!!)
-                        myAdapter.notifyDataSetChanged()
+                        myAdapter?.notifyDataSetChanged()
                     }
                     if (tracks.isEmpty()){
                         // Не нашлись
-                        searchErrorView.isVisible = true
-                        internetErrorView.isVisible = false
-                        recyclerSearch.isVisible = false
+                        searchErrorView?.isVisible = true
+                        internetErrorView?.isVisible = false
+                        recyclerSearch?.isVisible = false
                     }
                 } else {
                     // код ответа плохой
-                    searchErrorView.isVisible = false
-                    internetErrorView.isVisible = true
-                    recyclerSearch.isVisible = false
+                    searchErrorView?.isVisible = false
+                    internetErrorView?.isVisible = true
+                    recyclerSearch?.isVisible = false
                 }
             }
 
             override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
                 // всё плохо
-                searchProgressBar.isVisible = false
-                searchErrorView.isVisible = false
-                internetErrorView.isVisible = true
-                recyclerSearch.isVisible = false
+                searchProgressBar?.isVisible = false
+                searchErrorView?.isVisible = false
+                internetErrorView?.isVisible = true
+                recyclerSearch?.isVisible = false
             }
         })
     }

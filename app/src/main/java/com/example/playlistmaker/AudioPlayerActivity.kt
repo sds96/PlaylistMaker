@@ -17,19 +17,19 @@ import java.util.Locale
 const val PARCEL_KEY="track"
 
 class AudioPlayerActivity : AppCompatActivity() {
-    companion object {
-        private const val STATE_DEFAULT = 0
-        private const val STATE_PREPARED = 1
-        private const val STATE_PLAYING = 2
-        private const val STATE_PAUSED = 3
+    enum class State {
+        DEFAULT,
+        PREPARED,
+        PLAYING,
+        PAUSED
     }
 
-    private var playerState = STATE_DEFAULT
+    private var playerState = State.DEFAULT
     private var mediaPlayer = MediaPlayer()
-    private lateinit var playButton : ImageView
-    private lateinit var pauseButton : ImageView
-    private lateinit var backArrow : ImageView
-    private lateinit var trackProgress : TextView
+    private var playButton : ImageView? = null
+    private var pauseButton : ImageView? = null
+    private var backArrow : ImageView? = null
+    private var trackProgress : TextView? = null
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -37,11 +37,11 @@ class AudioPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audio_player)
 
-        playButton = findViewById<ImageView>(R.id.playButton)
-        pauseButton = findViewById<ImageView>(R.id.pauseButton)
-        backArrow = findViewById<ImageView>(R.id.backButton)
+        playButton = findViewById(R.id.playButton)
+        pauseButton = findViewById(R.id.pauseButton)
+        backArrow = findViewById(R.id.backButton)
 
-        backArrow.setOnClickListener{
+        backArrow?.setOnClickListener{
             finish()
         }
 
@@ -83,10 +83,10 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackProgress = findViewById(R.id.trackProgress)
 
         preparePlayer(track?.previewUrl)
-        playButton.setOnClickListener{
+        playButton?.setOnClickListener{
             playbackControl()
         }
-        pauseButton.setOnClickListener{
+        pauseButton?.setOnClickListener{
             playbackControl()
         }
     }
@@ -105,51 +105,54 @@ class AudioPlayerActivity : AppCompatActivity() {
         mediaPlayer.setDataSource(url)
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {
-            playButton.isVisible = true
-            pauseButton.isVisible = false
-            playerState = STATE_PREPARED
+            playButton?.isVisible = true
+            pauseButton?.isVisible = false
+            playerState = State.PREPARED
         }
         mediaPlayer.setOnCompletionListener {
-            playButton.isVisible = true
-            pauseButton.isVisible = false
-            playerState = STATE_PREPARED
+            playButton?.isVisible = true
+            pauseButton?.isVisible = false
+            playerState = State.PREPARED
             handler.removeCallbacks(trackProgressRunnable)
-            trackProgress.text = R.string.zero_track_progress.toString()
+            trackProgress?.text = R.string.zero_track_progress.toString()
         }
     }
 
     private fun startPlayer() {
         mediaPlayer.start()
-        playButton.isVisible = false
-        pauseButton.isVisible = true
-        playerState = STATE_PLAYING
+        playButton?.isVisible = false
+        pauseButton?.isVisible = true
+        playerState = State.PLAYING
         handler.post(trackProgressRunnable)
     }
 
     private fun pausePlayer() {
         mediaPlayer.pause()
-        playButton.isVisible = true
-        pauseButton.isVisible = false
-        playerState = STATE_PAUSED
+        playButton?.isVisible = true
+        pauseButton?.isVisible = false
+        playerState = State.PAUSED
     }
 
     private fun playbackControl() {
         when(playerState) {
-            STATE_PLAYING -> {
+            State.PLAYING -> {
                 pausePlayer()
             }
-            STATE_PREPARED, STATE_PAUSED -> {
+            State.PREPARED, State.PAUSED -> {
                 startPlayer()
+            }
+            else -> {
+                // заглушка
             }
         }
     }
 
     private val trackProgressRunnable = object : Runnable {
         override fun run() {
-            trackProgress.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
-            if(playerState == STATE_PLAYING)
+            trackProgress?.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
+            if(playerState == State.PLAYING)
                 handler.postDelayed(this, 300L)
-            else if (playerState == STATE_PAUSED)
+            else if (playerState == State.PAUSED)
                 handler.removeCallbacks(this)
         }
     }
