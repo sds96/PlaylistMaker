@@ -6,10 +6,12 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.domain.models.Track
+import com.example.playlistmaker.presentation.AudioPlayerActivity
 
-class TrackAdapter (
+class TrackAdapter(
     private val tracks: List<Track>,
-    private val searchHistory : SearchHistory
+    private val clickListener: TrackClickListener
 ) : RecyclerView.Adapter<TrackViewHolder> ()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -26,12 +28,9 @@ class TrackAdapter (
         holder.itemView.setOnClickListener{
             if(clickDebounce()){
                 val intent = Intent(holder.itemView.context, AudioPlayerActivity::class.java)
-                intent.putExtra(PARCEL_KEY, tracks[position])
+                intent.putExtra(Creator.PARCEL_KEY, tracks[position])
                 holder.itemView.context.startActivity(intent)
-
-                searchHistory.addTrack(tracks[position])
-                // изменился порядок от начала и до нажатого
-                notifyItemRangeChanged(0, position+1)
+                clickListener.onTrackClick(tracks[position], position)
             }
         }
     }
@@ -46,5 +45,9 @@ class TrackAdapter (
             handler.postDelayed({ isClickAllowed = true}, 1000L)
         }
         return currentState
+    }
+
+    fun interface TrackClickListener {
+        fun onTrackClick(track : Track, position: Int)
     }
 }
