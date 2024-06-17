@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.domain.models.Track
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,13 +37,15 @@ class SearchActivity : AppCompatActivity() {
 
     private val iTunesService = retrofit.create(ITunesApi::class.java)
     private val tracks = ArrayList<Track>()
-    var myAdapter : TrackAdapter? = null
+    var searchAdapter : TrackAdapter? = null
 
     // обработка проблем поиска
     var recyclerSearch : RecyclerView? = null
     var searchErrorView : LinearLayout? = null
     var internetErrorView : LinearLayout? = null
     var searchProgressBar : ProgressBar? = null
+
+    var historyAdapter : TrackAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +57,10 @@ class SearchActivity : AppCompatActivity() {
         val searchHistoryView = findViewById<LinearLayout>(R.id.search_history)
 
         val recyclerSearchHistory = findViewById<RecyclerView>(R.id.recyclerSearchHistory)
-        val historyAdapter = TrackAdapter(searchHistory.getHistory(), searchHistory)
+        historyAdapter = TrackAdapter(searchHistory.getHistory()) { t : Track, p: Int ->
+            searchHistory.addTrack(t)
+            historyAdapter?.notifyItemRangeChanged(0, p+1)
+        }
         recyclerSearchHistory.adapter = historyAdapter
 
         // ---- Просто поиск ----
@@ -62,8 +68,10 @@ class SearchActivity : AppCompatActivity() {
         internetErrorView = findViewById(R.id.internetErrorView)
         recyclerSearch = findViewById(R.id.recyclerSearch)
         searchProgressBar = findViewById(R.id.searchProgressBar)
-        myAdapter = TrackAdapter(tracks, searchHistory)
-        recyclerSearch?.adapter = myAdapter
+        searchAdapter = TrackAdapter(tracks) { t : Track, _ : Int ->
+            searchHistory.addTrack(t)
+        }
+        recyclerSearch?.adapter = searchAdapter
 
         // ---- Работа с вводом ----
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
@@ -79,8 +87,8 @@ class SearchActivity : AppCompatActivity() {
             recyclerSearch?.isVisible = false
             searchProgressBar?.isVisible = false
             tracks.clear()
-            myAdapter?.notifyDataSetChanged()
-            historyAdapter.notifyDataSetChanged()
+            searchAdapter?.notifyDataSetChanged()
+            historyAdapter?.notifyDataSetChanged()
         }
 
         val myTextWatcher = object : TextWatcher {
@@ -128,7 +136,7 @@ class SearchActivity : AppCompatActivity() {
         clearHistoryButton.setOnClickListener{
             searchHistoryView.isVisible = false
             searchHistory.clearHistory()
-            historyAdapter.notifyDataSetChanged()
+            historyAdapter?.notifyDataSetChanged()
         }
     }
 
@@ -165,7 +173,7 @@ class SearchActivity : AppCompatActivity() {
                         recyclerSearch?.isVisible = true
 
                         tracks.addAll(response.body()?.results!!)
-                        myAdapter?.notifyDataSetChanged()
+                        searchAdapter?.notifyDataSetChanged()
                     }
                     if (tracks.isEmpty()){
                         // Не нашлись
@@ -206,7 +214,9 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        findViewById<EditText>(R.id.inputEditText).setText(savedInstanceState.getString(SEARCH_STRING))
+        findViewById<EditText>(R.id.inputEditText).setText(savedInstanceState.getString(
+            SEARCH_STRING
+        ))
     }
 
     companion object{
