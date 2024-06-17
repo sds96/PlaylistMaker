@@ -7,8 +7,7 @@ import com.example.playlistmaker.domain.models.AudioPlayerState
 
 // конкретная реализация работы репозитория (хранилища самого плеера),
 // гарантирующая набор требуемых функций
-class AudioPlayerRepositoryImpl() :AudioPlayerRepository {
-    private val mediaPlayer = MediaPlayer()
+class AudioPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :AudioPlayerRepository {
     private var state = AudioPlayerState.DEFAULT
     private lateinit var onStateChangeListener : OnAudioPlayerStateChangeListener
 

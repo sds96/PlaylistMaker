@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import com.example.playlistmaker.data.AudioPlayerRepositoryImpl
 import com.example.playlistmaker.domain.api.AudioPlayerInteractor
@@ -22,6 +23,6 @@ object Creator {
     }
 
     private fun provideAudioPlayerRepository() : AudioPlayerRepository{
-        return AudioPlayerRepositoryImpl()
+        return AudioPlayerRepositoryImpl(MediaPlayer())
     }
 }
